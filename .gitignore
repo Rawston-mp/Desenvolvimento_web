@@ -1,53 +1,115 @@
-# Node geral
+# ==========================================
+# Node.js
+# ==========================================
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-lock.yaml
+pnpm-debug.log*
 package-lock.json
-
-# Ambiente
-.env
-.env.local
-.env.*.local
-venv/
+.pnpm-debug.log
 
 # Logs
 logs
 *.log
 *.log.*
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+*.out
+*.pid
+*.seed
+*.pid.lock
 
-# Cobertura e builds
+# Coverage
 coverage/
+*.lcov
+
+# Build / Cache
 dist/
 build/
 .cache/
+.nyc_output/
+.next/
+out/
+.temp/
 .tmp/
 
-# Sistema e editores
+# ==========================================
+# Python / venv
+# ==========================================
+# Virtualenv
+venv/
+ENV/
+env/
+.venv/
+
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+*.egg-info/
+.eggs/
+*.egg
+.Python
+pip-wheel-metadata/
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+
+# Test / Coverage
+.pytest_cache/
+.coverage
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# ==========================================
+# Environment / Config
+# ==========================================
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# dotenv files
+*.env.*
+
+# ==========================================
+# Sistema Operacional / IDEs
+# ==========================================
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
 Thumbs.db
-.idea/
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# VSCode
 .vscode/
-.vscode/*
-!.vscode/extensions.json
-!.vscode/settings.json
+.history/
 
-# Frontend estático gerado
-frontend/.vite/
-frontend/.parcel-cache/
-frontend/.cache/
-frontend/dist/
-frontend/build/
+# JetBrains / PyCharm / WebStorm
+.idea/
+*.iml
 
-# Arquivos temporários
-*.swp
-*.swo
-*.tmp
-*.temp
+# ==========================================
+# Outros
+# ==========================================
+# Arquivos de banco locais
+*.sqlite3
+*.db
 
-# Docker opcional
-docker-data/
+# Uploads temporários
+uploads/
+tmp/
