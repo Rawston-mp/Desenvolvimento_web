@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rapidinho</title>
+
+  <!-- Fontes e ícones -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Seu CSS -->
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <!-- Top bar com login e carrinho -->
+  <div class="bg-gray-900 text-gray-100">
+    <div class="container mx-auto px-4 py-2 flex items-center justify-between">
+      <div class="text-sm" id="authStatus">Você não está logado.</div>
+      <div class="flex items-center gap-2">
+        <button class="btn btn-blue text-sm" id="openAuth">Entrar ou cadastrar</button>
+        <button class="btn text-sm hidden" id="logoutBtn">Sair</button>
+        <button class="btn text-sm" id="cartBtn" aria-label="Carrinho">
+          <i class="fas fa-shopping-cart"></i>
+          <span id="cartCount" class="ml-1">0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cabeçalho -->
+  <header class="header py-3 sticky top-0 z-50">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-3">
+        <div class="flex items-center">
+          <h1 class="text-2xl font-bold text-gray-800 mr-3">MercadoLocal</h1>
+
+          <div class="city-selector flex items-center px-3 py-1" aria-label="Selecionar cidade">
+            <i class="fas fa-map-marker-alt text-gray-500 mr-2"></i>
+            <select id="citySelect" class="bg-transparent border-none outline-none text-sm text-gray-700" aria-label="Cidade">
+              <option value="">Sua cidade</option>
+              <option>São Paulo</option>
+              <option>Rio de Janeiro</option>
+              <option>Belo Horizonte</option>
+              <option>Porto Alegre</option>
+            </select>
+          </div>
+        </div>
+
+        <form id="searchForm" class="search-bar flex items-center w-full md:w-1/2 px-4 py-2" role="search" aria-label="Buscar produtos">
+          <input id="searchInput" type="text" placeholder="Buscar produtos..." class="search-input flex-grow"/>
+          <button type="submit" class="bg-gray-200 px-4 py-1 rounded" aria-label="Buscar">
+            <i class="fas fa-search text-gray-500"></i>
+          </button>
+        </form>
+
+        <nav class="hidden md:flex items-center space-x-4">
+          <button class="text-gray-700 hover:text-gray-900" aria-label="Favoritos">
+            <i class="far fa-heart text-lg"></i>
+          </button>
+          <button class="btn btn-blue text-sm" id="myStoreBtn">
+            <i class="fas fa-store-alt"></i>
+            <span>Meu Negócio</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="container mx-auto px-4 py-8">
+    <!-- Banner -->
+    <section class="mb-8">
+      <div class="banner">
+        <img src="https://placehold.co/1200x300" alt="Panorâmica da cidade"/>
+        <div class="overlay"></div>
+        <div class="content">
+          <div class="flex justify-between items-end">
+            <div>
+              <h2 class="text-white text-2xl font-bold">Produtos em Sua Cidade</h2>
+              <p class="text-gray-200 text-sm">Mais de 500 itens disponíveis para entrega local</p>
+            </div>
+            <button class="btn-announce" id="announceBtn">
+              <i class="fas fa-store"></i>
+              <span>Anunciar Produto</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categorias -->
+    <section class="mb-8" aria-labelledby="cat-title">
+      <h2 id="cat-title" class="text-xl font-bold mb-4 text-gray-800 flex items-center">
+        <i class="fas fa-tags mr-2 text-gray-500"></i>
+        <span>Categorias Populares</span>
+      </h2>
+      <div id="categoryList" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"></div>
+    </section>
+
+    <!-- Produtos Locais -->
+    <section class="mb-8" aria-labelledby="prod-title">
+      <div class="flex justify-between items-center mb-4">
+        <h2 id="prod-title" class="text-xl font-bold text-gray-800 flex items-center">
+          <i class="fas fa-map-marker-alt text-red-500 mr-2"></i>
+          <span>Produtos mais próximos</span>
+        </h2>
+        <button class="text-blue-500 hover:text-blue-700 text-sm" id="seeAllBtn">Ver todos</button>
+      </div>
+      <div id="productList" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"></div>
+    </section>
+
+    <!-- Vendedores e mapa, pode ficar com dados demo por enquanto -->
+    <section class="mb-8" aria-labelledby="vendors-title">
+      <h2 id="vendors-title" class="text-xl font-bold mb-4 text-gray-800 flex items-center">
+        <i class="fas fa-map-marked-alt text-green-500 mr-2"></i>
+        <span>Vendedores na sua região</span>
+      </h2>
+      <div class="card overflow-hidden">
+        <div class="flex flex-col md:flex-row">
+          <div class="md:w-2/3">
+            <div id="map" class="h-full"></div>
+          </div>
+          <div class="md:w-1/3 p-4">
+            <div class="flex items-center mb-4">
+              <input type="text" placeholder="Buscar vendedores..." class="border border-gray-300 rounded-l-lg px-3 py-2 flex-grow outline-none" id="sellerSearch"/>
+              <button class="btn" id="sellerSearchBtn" aria-label="Buscar vendedores">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+            <div id="sellerList" class="space-y-3"></div>
+            <button class="w-full mt-4 bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 rounded-lg text-sm font-medium" id="seeAllSellers">Ver todos os vendedores</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal de autenticação -->
+  <div id="authModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-xl w-full max-w-md p-6 shadow-xl">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-lg font-bold">Entrar ou cadastrar</h3>
+        <button id="closeAuth" aria-label="Fechar" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2 mb-4">
+        <button id="tabLogin" class="btn btn-blue w-full">Entrar</button>
+        <button id="tabRegister" class="btn w-full">Cadastrar</button>
+      </div>
+
+      <!-- Login -->
+      <form id="loginForm" class="space-y-3">
+        <input type="email" id="loginEmail" class="w-full border rounded-lg px-3 py-2" placeholder="Email" required/>
+        <input type="password" id="loginPassword" class="w-full border rounded-lg px-3 py-2" placeholder="Senha" required/>
+        <button type="submit" class="btn btn-blue w-full justify-center">Entrar</button>
+        <p id="loginMsg" class="text-sm text-red-600"></p>
+      </form>
+
+      <!-- Cadastro -->
+      <form id="registerForm" class="space-y-3 hidden mt-2">
+        <input type="text" id="regName" class="w-full border rounded-lg px-3 py-2" placeholder="Nome" required/>
+        <input type="email" id="regEmail" class="w-full border rounded-lg px-3 py-2" placeholder="Email" required/>
+        <input type="password" id="regPassword" class="w-full border rounded-lg px-3 py-2" placeholder="Senha" required/>
+        <select id="regRole" class="w-full border rounded-lg px-3 py-2">
+          <option value="cliente">Cliente</option>
+          <option value="lojista">Lojista</option>
+        </select>
+        <button type="submit" class="btn btn-blue w-full justify-center">Cadastrar</button>
+        <p id="regMsg" class="text-sm text-red-600"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Seu JS -->
+  <script src="script.js"></script>
+</body>
+</html>
