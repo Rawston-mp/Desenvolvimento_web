@@ -145,3 +145,8 @@ Copiar código
 4. Nodemon com EISDIR no WSL  
    Rodar no terminal da distro Linux  
    Usar nodemon.json para limitar os diretórios observados
+
+Remover venv/ do repositório (sem apagar local)
+git rm -r --cached venv
+git commit -m "removendo venv do repositório"
+git push origin dev
