@@ -22,6 +22,11 @@ mongoose
     process.exit(1);
   });
 
+app.get('/sucesso', (req, res) => res.send('Pagamento aprovado'));
+app.get('/falha',   (req, res) => res.send('Pagamento falhou'));
+app.get('/pendente',(req, res) => res.send('Pagamento pendente'));
+
+
 // Rotas
 // Certifique-se de ter os arquivos em backend/routes
 // auth.js, products.js, orders.js, checkout.js
