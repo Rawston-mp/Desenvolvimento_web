@@ -184,3 +184,7 @@ git rm -r --cached venv
 git commit -m "removendo venv do repositório"
 git push origin dev
 
+## 📜 Licença
+Este projeto está licenciado sob a licença MIT.  
+MIT © 2025 [Rawston M. Pinto](https://github.com/Rawston-mp)
+
