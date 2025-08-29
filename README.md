@@ -188,3 +188,4 @@ git push origin dev
 Este projeto está licenciado sob a licença MIT.  
 MIT © 2025 [Rawston M. Pinto](https://github.com/Rawston-mp)
 
+
