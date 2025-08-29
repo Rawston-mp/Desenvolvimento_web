@@ -23,6 +23,39 @@ index.html
 style.css
 script.js
 
+## 📂 Estrutura do Projeto
+
+```text
+rapidinho/
+├─ backend/
+│  ├─ server.js                 # servidor Express, conexão Mongo, rotas base
+│  ├─ .env                      # variáveis de ambiente (ignorado no git)
+│  ├─ package.json              # dependências e scripts npm
+│  ├─ models/
+│  │  ├─ User.js                # modelo de usuário
+│  │  ├─ Product.js             # modelo de produto
+│  │  └─ Order.js               # modelo de pedido
+│  ├─ routes/
+│  │  ├─ auth.js                # autenticação (login e registro)
+│  │  ├─ products.js            # CRUD de produtos
+│  │  ├─ orders.js              # pedidos
+│  │  ├─ checkout.js            # integração Mercado Pago (init_point, debug)
+│  │  └─ webhook.js             # webhook de pagamentos
+│  └─ middleware/
+│     └─ auth.js                # valida JWT e papéis de usuário
+│
+├─ frontend/
+│  ├─ index.html                # página inicial com catálogo
+│  ├─ css/
+│  │  └─ styles.css             # estilos separados
+│  └─ js/
+│     └─ script.js              # integração com API do backend
+│
+├─ .gitignore                   # ignora node_modules, venv, .env etc
+├─ README.md                    # documentação do projeto
+└─ LICENSE                      # licença do repositório
+
+
 
 ## Requisitos
 
@@ -150,3 +183,4 @@ Remover venv/ do repositório (sem apagar local)
 git rm -r --cached venv
 git commit -m "removendo venv do repositório"
 git push origin dev
+
